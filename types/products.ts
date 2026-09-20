@@ -3,6 +3,7 @@ export type Product = {
   category: string;
   name: string;
   imageUrl?: string;
+  imageUrls?: string[];
   specs: string[];
   price: number;
   compareAtPrice?: number;

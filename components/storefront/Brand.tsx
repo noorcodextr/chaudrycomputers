@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 
 
 export function Brand({ footer = false }: { footer?: boolean }) {
   return (
-  <a
+  <Link
     href="/"
     className="flex h-14 w-[150px] items-center justify-center sm:h-16 sm:w-[175px]"
   > 
@@ -13,8 +14,9 @@ export function Brand({ footer = false }: { footer?: boolean }) {
         alt="Chaudry Computers"
         width={100}
         height={40}
+        className="h-auto w-auto"
       />
       </div> 
-      </a>
+      </Link>
   );
 }

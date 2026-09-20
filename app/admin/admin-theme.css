@@ -1,0 +1,26 @@
+/* Admin-only design tokens (Orbit system) — scoped here, not mixed into
+   the storefront's shadcn tokens in globals.css */
+@theme {
+  --color-paper: #F7F7F4;
+  --color-surface: #FFFFFF;
+  --color-line: #E5E4E0;
+
+  --color-ink: #1C1D1F;
+  --color-ink-soft: #6B6D70;
+  --color-ink-faint: #9A9C9E;
+
+  --color-pine-50: #EAF3F0;
+  --color-pine-100: #CFE4DD;
+  --color-pine-300: #6FA79A;
+  --color-pine-500: #0F6B5C;
+  --color-pine-600: #0C5749;
+  --color-pine-700: #0A473B;
+
+  --color-amber-400: #D9A441;
+  --color-amber-500: #C98A2B;
+  --color-slateblue: #4A5FC1;
+  --color-rose: #B3564A;
+
+  --radius-card: 10px;
+  --shadow-card: 0 1px 2px rgba(28, 29, 31, 0.04);
+}
