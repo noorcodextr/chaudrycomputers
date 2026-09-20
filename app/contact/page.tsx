@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { ArrowRight, Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Brand } from "@/components/storefront/Brand";
+import { getSiteSettings } from "@/lib/site-content";
 
-const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
-const whatsappHref = phoneNumber ? `https://wa.me/${phoneNumber}` : "/";
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
+  const phoneNumber = settings.phone || process.env.NEXT_PUBLIC_PHONE_NUMBER;
+  const whatsappHref = phoneNumber ? `https://wa.me/${phoneNumber}` : "/";
 
-export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-30 border-b border-border/80 bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-4 lg:px-8">
-          <Brand />
+          <Brand logoUrl={settings.logoUrl} />
           <Link
             href="/"
             className="inline-flex items-center gap-2 border border-border px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-foreground hover:border-primary hover:text-primary"
@@ -28,12 +30,10 @@ export default function ContactPage() {
               Contact the workshop
             </p>
             <h1 className="mt-3 font-display text-5xl font-bold uppercase leading-[0.9] md:text-6xl">
-              Talk to Chaudry Computers.
+              {settings.storefrontHeadline}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-              Whether you are building a new setup, replacing a component, or checking compatibility,
-              our team can help you pick the right parts and answer the questions that matter before
-              you spend money.
+              {settings.storefrontSubtitle}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -64,7 +64,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[.16em] text-muted-foreground">Location</p>
-                  <p className="mt-1 font-display text-2xl font-bold uppercase">Bahawalpur, Pakistan</p>
+                  <p className="mt-1 font-display text-2xl font-bold uppercase">{settings.location}</p>
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[.16em] text-muted-foreground">Support</p>
-                  <p className="mt-1 text-sm text-foreground">WhatsApp outreach and direct workshop advice</p>
+                  <p className="mt-1 text-sm text-foreground">{phoneNumber ? `WhatsApp ${phoneNumber}` : "WhatsApp outreach and direct workshop advice"}</p>
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-[.16em] text-muted-foreground">Hours</p>
-                  <p className="mt-1 text-sm text-foreground">Mon–Sat · 10:00 AM to 8:00 PM</p>
+                  <p className="mt-1 text-sm text-foreground">{settings.supportHours}</p>
                 </div>
               </div>
             </div>

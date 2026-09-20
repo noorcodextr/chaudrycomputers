@@ -117,6 +117,21 @@ export const orderItems = pgTable(
   ],
 );
 
+export const siteSettings = pgTable("site_settings", {
+  id: serial("id").primaryKey(),
+
+  storefrontHeadline: text("storefront_headline").notNull().default("Build without doubt."),
+  storefrontSubtitle: text("storefront_subtitle").notNull().default("Genuine PC components, checked by people who know what they are looking at."),
+  storefrontCta: text("storefront_cta").notNull().default("Browse the bench"),
+  logoUrl: text("logo_url").default(""),
+
+  location: text("location").notNull().default("Bahawalpur, Pakistan"),
+  supportHours: text("support_hours").notNull().default("Mon–Sat · 10:00 AM to 8:00 PM"),
+  phone: text("phone").default(""),
+  footerText: text("footer_text").notNull().default("The Bahawalpur parts desk for people who care what goes inside the case."),
+
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
 
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
@@ -124,3 +139,4 @@ export type NewProduct = typeof products.$inferInsert;
 export type Admin = typeof admins.$inferSelect;
 export type Order = typeof orders.$inferSelect;
 export type OrderItem = typeof orderItems.$inferSelect;
+export type SiteSettings = typeof siteSettings.$inferSelect;

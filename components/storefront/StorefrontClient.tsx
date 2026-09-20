@@ -18,13 +18,15 @@ import { CartPanel } from "@/components/storefront/Cartpanel";
 import { ProductCard } from "@/components/storefront/Productcard";
 import { categories } from "@/types/categories";
 import { Product } from "@/types/products";
+import type { SiteSettings } from "@/lib//site-content";
+import { redirect } from "next/navigation";
 
 export type CartLine = {
     product: Product;
     quantity: number;
 };
 
-export default function StorefrontClient({ products }: { products: Product[] }) {
+export default function StorefrontClient({ products, settings }: { products: Product[]; settings: SiteSettings }) {
     const [category, setCategory] = useState("All");
     const [search, setSearch] = useState("");
     const [cartOpen, setCartOpen] = useState(false);
@@ -101,7 +103,7 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
     }
 
     return (<div className="min-h-[100dvh] bg-background">
-        {/* HEADER */} <header className="sticky top-0 z-30 border-b border-border/80 bg-background/95 backdrop-blur"> <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-4 lg:px-8"> <Brand />
+        {/* HEADER */} <header className="sticky top-0 z-30 border-b border-border/80 bg-background/95 backdrop-blur"> <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-4 lg:px-8"> <Brand logoUrl={settings.logoUrl} />
 
             <nav className="hidden items-center gap-7 text-[11px] font-extrabold uppercase tracking-[.16em] text-muted-foreground md:flex">
                 <a href="#catalog" className="hover:text-primary">
@@ -118,12 +120,6 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
             </nav>
 
             <div className="flex items-center gap-2">
-                <a
-                    href="/admin"
-                    className="hidden items-center gap-2 border border-border px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.14em] hover:border-primary hover:text-primary sm:flex"
-                >
-                    Staff
-                </a>
 
                 <button
                     type="button"
@@ -175,30 +171,24 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
 
                 <div className="relative mx-auto grid max-w-[1440px] gap-10 px-4 py-20 lg:grid-cols-[1.15fr_.85fr] lg:px-8 lg:py-28">
                     <div className="max-w-3xl">
-                        <p className="mb-5 flex items-center gap-2 font-display text-[10px] font-medium uppercase tracking-[.22em] text-accent">
-                            <span className="size-2 bg-accent" />
-                            Bahawalpur parts desk
+                        <p className="mb-5 flex items-center gap-2 font-display text-[10px] font-medium uppercase tracking-[.22em] text-amber-500">
+                            <span className="size-2 bg-amber-500" />
+                            {settings.location}
                         </p>
 
                         <h1 className=" text-[clamp(4rem,10vw,8.6rem)] font-bold bg-circle font-display uppercase leading-[.8] tracking-[-.035em]">
-                            Build
-                            <br />
-                            <span className="text-chred">without</span>
-                            <br />
-                            doubt.
+                            {settings.storefrontHeadline}
                         </h1>
 
                         <p className="mt-8 max-w-lg font-manrope text-base leading-7 text-white/65">
-                            Genuine PC components, checked by people who know what they
-                            are looking at. Pick your parts, send the request, talk
-                            directly to our workshop.
+                            {settings.storefrontSubtitle}
                         </p>
 
                         <a
                             href="#catalog"
-                            className="mt-8 inline-flex bg-[#d92d20] font-manrope items-center gap-3 bg-primary px-5 py-3 text-xs font-extrabold uppercase tracking-[.16em] text-white transition-transform hover:-translate-y-1"
+                            className="mt-8 inline-flex bg-[#d92d20] font-manrope items-center gap-3 bg-chred px-5 py-3 text-xs font-extrabold uppercase tracking-[.16em] text-white transition-transform hover:-translate-y-1"
                         >
-                            Browse the bench
+                            {settings.storefrontCta}
                             <ArrowRight className="size-4" />
                         </a>
                     </div>
@@ -206,7 +196,7 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
                     <div className="flex items-end lg:justify-end">
                         <div className="w-full max-w-sm border border-white/15 bg-white/[.04] p-5 backdrop-blur">
                             <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                                <span className="font-manrope text-[10px] uppercase tracking-[.15em] text-white/50">
+                                <span className="font-manrope text-[10px] uppercase tracking-[.15em] text-amber-300">
                                     Bench status
                                 </span>
 
@@ -227,14 +217,14 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-2 text-[10px] uppercase tracking-[.1em] text-white/50">
+                            <div className="grid grid-cols-2 gap-2 text-[10px] uppercase tracking-[.1em] text-amber-300">
                                 <div className="border border-white/10 p-3">
-                                    <BadgeCheck className="mb-2 size-4 text-accent" />
+                                    <BadgeCheck className="mb-2 size-4 text-teal-400" />
                                     Verified sourcing
                                 </div>
 
                                 <div className="border border-white/10 p-3">
-                                    <MessageCircle className="mb-2 size-4 text-accent" />
+                                    <MessageCircle className="mb-2 size-4 text-teal-400" />
                                     Direct WhatsApp
                                 </div>
                             </div>
@@ -406,11 +396,10 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
         >
             <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-12 lg:grid-cols-[1fr_auto] lg:px-8">
                 <div>
-                    <Brand footer={true} />
+                    <Brand footer={true} logoUrl={settings.logoUrl} />
 
                     <p className="mt-5 max-w-sm text-sm leading-6 text-white/50">
-                        The Bahawalpur parts desk for people who care what goes inside
-                        the case.
+                        {settings.footerText}
                     </p>
                 </div>
 
@@ -423,7 +412,11 @@ export default function StorefrontClient({ products }: { products: Product[] }) 
 
                     <button
                         type="button"
-                        onClick={() => setCartOpen(true)}
+                        onClick={
+                            cartCount > 0
+                                ? () => setCartOpen(true)
+                                : () => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth" })
+                        }
                         className="mt-2 inline-flex items-center gap-2 self-start bg-chred px-4 py-2 text-xs font-bold uppercase tracking-widest text-white"
                     >
                         Start an order

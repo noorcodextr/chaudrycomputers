@@ -1,22 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export function Brand({
+  footer = false,
+  logoUrl,
+}: {
+  footer?: boolean;
+  logoUrl?: string;
+}) {
+  const src = logoUrl || (footer ? "/footerlogo.png" : "/logo.png");
 
-export function Brand({ footer = false }: { footer?: boolean }) {
   return (
-  <Link
-    href="/"
-    className="flex h-14 w-[150px] items-center justify-center sm:h-16 sm:w-[175px]"
-  > 
-  <div className="font-display text-2xl font-black uppercase tracking-tight text-black">
-      <Image
-        src={footer ? "/footerlogo.png" : "/logo.png"}
-        alt="Chaudry Computers"
-        width={100}
-        height={40}
-        className="h-auto w-auto"
-      />
-      </div> 
-      </Link>
+    <Link
+      href="/"
+      className="flex h-14 w-[150px] items-center justify-center sm:h-16 sm:w-[175px]"
+    >
+      <div className="font-display text-2xl font-black uppercase tracking-tight text-black">
+        <Image
+          src={src}
+          alt="Chaudry Computers"
+          width={100}
+          height={40}
+          className="h-auto w-auto"
+        />
+      </div>
+    </Link>
   );
 }
